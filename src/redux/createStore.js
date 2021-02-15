@@ -1,0 +1,14 @@
+import { createStore } from 'redux';
+import {feedbacks} from './feedbackreducer';
+
+export const ConfigureStore = () => {
+  const store = createStore(
+    feedbacks,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  ); 
+    return store;
+};
+
+
+
+

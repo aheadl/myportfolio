@@ -3,39 +3,52 @@ import { Link, withRouter } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
 
 
+
 class Contact extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: '',
-      lastName: '',
-            phone: '',
-            email: '',
-            agree: false,
-            contactType: 'By Phone',
-            feedback: ''
-      }
-      this.handleInputChange = this.handleInputChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
+      firstName: "",
+      lastName: "",
+      phone: "",
+      email: "",
+      agree: false,
+      contactType: "",
+      feedback: "",
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.toggleCheckboxValue = this.toggleCheckboxValue.bind(this);
   }
 
   handleInputChange(event) {
     const name = event.target.name;
     console.log("event name is ", name);
     console.log("event value is ", event.target.value);
-    this.setState({[event.target.name]: event.target.value});
+    this.setState({ [event.target.name]: event.target.value });
     console.log("DISPLAY STATE: ", this.state);
-    
+  }
+  toggleCheckboxValue(event) {
+    this.setState({agree: true})
   }
 
   handleSubmit(values) {
     console.log("In handle submit function");
-    console.log("DISPLAY STATE: ", this.state)
-    alert("Thanks for filling in the form ", JSON.stringify(this.state));
-
+    console.log("DISPLAY STATE after submit: ", this.state);
+    console.log("Feedback entered: ", this.state.feedback)
+    alert(`Thanks ${this.state.firstName} for filling in the form`);
+    this.props.addFeedback(
+      this.state.firstName,
+      this.state.lastName,
+      this.state.phone,
+      this.state.email,
+      this.state.agree,
+      this.state.contactType,
+      this.state.feedback
+    );
   }
-  
-  render() { 
+
+  render() {
     return (
       <div className="container">
         <div className="row align-items-center">
@@ -70,7 +83,7 @@ class Contact extends Component {
             </address>
           </div>
           <div className="col">
-            {/* <Link
+            <Link
               role="button"
               className="btn btn-link"
               href="tel:+19085551234"
@@ -84,7 +97,7 @@ class Contact extends Component {
               href="mailto:healthybalance@yahoo.com"
             >
               <i className="fa fa-envelope-o"></i> aheadley@gmail.com
-            </Link> */}
+            </Link>
           </div>
         </div>
         <div className="row row-content ml-3">
@@ -108,7 +121,7 @@ class Contact extends Component {
                 name="firstName"
                 placeholder="First name"
                 // value={this.state.firstName}
-                onChange={e => this.handleInputChange(e)}
+                onChange={(e) => this.handleInputChange(e)}
               />
             </div>
           </div>
@@ -125,8 +138,7 @@ class Contact extends Component {
                 placeholder="Last name"
                 name="lastName"
                 // value={this.state.lastName}
-                onChange={ this.handleInputChange}
-
+                onChange={this.handleInputChange}
               ></input>
             </div>
           </div>
@@ -173,16 +185,21 @@ class Contact extends Component {
               </label>
             </div>
             <div className="col-2">
-              <input type="checkbox" name="agree" 
-              // value={this.state.agree}
+              <input
+                type="checkbox"
+                name="agree"
+                onChange={this.toggleCheckboxValue}
+                // value={this.state.agree}
               />
             </div>
             <div className="col-8">
-              <select name="contactType" 
-              // value={this.state.contactType}
+              <select
+                name="contactType"
+                onChange={this.handleInputChange}
+                // value={this.state.contactType}
               >
-                <option value="">By email</option>
-                <option value="">By phone</option>
+                <option value="By email">By email</option>
+                <option value="By phone">By phone</option>
                 <option selected value="...Select">
                   ...Select
                 </option>
@@ -203,11 +220,14 @@ class Contact extends Component {
                 onChange={this.handleInputChange}
               />
             </div>
+            <br />
           </div>
           <div className="row">
-            <div className=""></div>
-            <div className="col-12">
+            <div className="col-3">
               <input type="submit" name="submit" />
+            </div>
+            <div className="col-2">
+              <input type="reset" name="reset" />
             </div>
           </div>
         </form>
@@ -216,4 +236,5 @@ class Contact extends Component {
   }
 }
  
+
 export default Contact;

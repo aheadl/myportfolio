@@ -6,6 +6,8 @@ import Wellness from './Wellness';
 import Contact from './Contact';
 import { HOMEIMAGES } from "../shared/home_images";
 import { Link, Switch, Route, withRouter } from "react-router-dom";
+import { addFeedback} from "../redux/ActionCreators";
+import { connect } from "react-redux";
 
 class Main extends Component {
     constructor(props) {
@@ -27,7 +29,11 @@ class Main extends Component {
               <Route path="/food" component={Food} />
               <Route path="/vegan" component={Vegan} />
               <Route path="/healthwellness" component={Wellness} />
-              <Route path='/contact' component={Contact} />
+              {/* <Route path="/contact" component={Contact} /> */}
+              <Route
+                path="/contact"
+                render={() => <Contact addFeedback={this.props.addFeedback} />}
+              />
               {/* <Route path='/healthwellness' component={Wellness} />
                     <Route path='/travel' component={Travel} />
                     <Route path='/fashion' component={Fashion} />
@@ -40,4 +46,31 @@ class Main extends Component {
 };
 
 }
-export default Main;
+//create constant after class to interact with redux
+const mapStateToProps = state => {
+  return {
+    feedbacks: state.feedback
+  };
+};
+
+const mapDispatchToProps = {
+  addFeedback: (
+    firstName,
+    lastName,
+    phoneNum,
+    email,
+    agree,
+    contactType,
+    feedback
+  ) =>
+    addFeedback(
+      firstName,
+      lastName,
+      phoneNum,
+      email,
+      agree,
+      contactType,
+      feedback
+    ),
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
