@@ -7,7 +7,7 @@ import Contact from './Contact';
 import { HOMEIMAGES } from "../shared/home_images";
 import { Link, Switch, Route, withRouter } from "react-router-dom";
 import { addFeedback} from "../redux/ActionCreators";
-import { connect } from "react-redux";
+import { connect } from "react-redux"; //used to connect the component to the redux store
 
 class Main extends Component {
     constructor(props) {
@@ -47,6 +47,11 @@ class Main extends Component {
 
 }
 //create constant after class to interact with redux
+//map state to props - used to determine how the state managed by redux should be mapped you can use in this container/component
+//it stores a func which expects a state stored in redux as the input parameter and returns a JS object which is a map of 
+//prop names and slices of the state
+//stored in redux
+
 const mapStateToProps = state => {
   return {
     feedbacks: state.feedback
@@ -54,23 +59,33 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
+  
   addFeedback: (
     firstName,
     lastName,
-    phoneNum,
+    phone,
     email,
     agree,
     contactType,
     feedback
   ) =>
-    addFeedback(
+    (addFeedback(
       firstName,
       lastName,
-      phoneNum,
+      phone,
       email,
       agree,
       contactType,
       feedback
-    ),
+    ))
 };
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     // dispatch
+//     //addFeedback: () => dispatch({ type: "ADD_FEEDBACK" })
+//     addFeedback: () => dispatch({type: 'ADD_FEEDBACK'})
+//   }
+// }
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
+//export default Main;

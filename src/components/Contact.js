@@ -1,8 +1,49 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
+import { addFeedback } from "../redux/ActionCreators";
+import { connect } from "react-redux";
 
+// const mapStateToProps = (state) => {
+//   return {
+//     feedbacks: state.feedback,
+//   };
+// };
 
+// const mapDispatchToProps = {
+//   addFeedback: (
+//     firstName,
+//     lastName,
+//     phone,
+//     email,
+//     agree,
+//     contactType,
+//     feedback
+//   ) =>
+//     addFeedback(
+//       firstName,
+//       lastName,
+//       phone,
+//       email,
+//       agree,
+//       contactType,
+//       feedback
+//     ),
+// };
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     handleSubmit: () =>
+//       dispatch({
+//         type: "ADD_FEEDBACK",
+//         firstName: firstName,
+//         lastName: lastName,
+//         phone: phone,
+//         email: email,
+//         agree: agree,
+//         contactType: contactType
+//       }),
+//   };
+// }
 
 class Contact extends Component {
   constructor(props) {
@@ -16,11 +57,13 @@ class Contact extends Component {
       contactType: "",
       feedback: "",
     };
+    console.log("addfeedback from action creator", props.addFeedback);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleCheckboxValue = this.toggleCheckboxValue.bind(this);
   }
 
+  
   handleInputChange(event) {
     const name = event.target.name;
     console.log("event name is ", name);
@@ -33,23 +76,48 @@ class Contact extends Component {
   }
 
   handleSubmit(values) {
+    
     console.log("In handle submit function");
+    console.log("Store feedback is ", this.props.getStoreFeedback);
     console.log("DISPLAY STATE after submit: ", this.state);
-    console.log("Feedback entered: ", this.state.feedback)
-    alert(`Thanks ${this.state.firstName} for filling in the form`);
-    this.props.addFeedback(
-      this.state.firstName,
-      this.state.lastName,
-      this.state.phone,
-      this.state.email,
-      this.state.agree,
-      this.state.contactType,
-      this.state.feedback
-    );
+    console.log("Feedback entered: ", this.state.feedback);
+     alert(`Thanks ${this.state.firstName} for filling in the form`);
+   
+    //insert addFeedback to dispatch an action when the form is submitted, and passes to redux store
+    // this.props.addFeedback(
+    //   this.state.firstName,
+    //   this.state.lastName,
+    //   this.state.phone,
+    //   this.state.email,
+    //   this.state.agree,
+    //   this.state.contactType,
+    //   this.state.feedback
+    // );
+    // this.props.addFeedback(
+    //   values.firstName,
+    //   values.lastName,
+    //   values.phone,
+    //   values.email,
+    //   values.agree,
+    //   values.contactType,
+    //   values.feedback
+    // );
+     this.props.addFeedback(
+       "Annie",
+       "Headley",
+       "9082061155",
+       "ah@gmail.com",
+       true,
+       "By email",
+       "Web site is ok"
+     );
+     
+       
   }
 
   render() {
     return (
+      
       <div className="container">
         <div className="row align-items-center">
           <div className="col-12 ml-2">
