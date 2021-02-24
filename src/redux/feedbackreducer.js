@@ -29,7 +29,7 @@ const myFeedback = [
 ];
 
 const testFeedback = {
-  firstName: "Mickey",
+  firstName: "Mickey1",
   lastName: "Kent",
   phone: "9085555556",
   email: "mickey@yahoo.com",
@@ -40,7 +40,7 @@ const testFeedback = {
 
   export const feedbacks = (state = Feedback, action) => {
     //action.type = ActionTypes.ADD_FEEDBACK;
-
+    console.log("ACTION DISPATCHED IS ", action)
     //let newFeedback = [];
     switch (action.type) {
       case ActionTypes.ADD_FEEDBACK:

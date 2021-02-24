@@ -7,7 +7,7 @@ import Contact from './Contact';
 import { HOMEIMAGES } from "../shared/home_images";
 import { Link, Switch, Route, withRouter } from "react-router-dom";
 import { addFeedback} from "../redux/ActionCreators";
-import { connect } from "react-redux"; //used to connect the component to the redux store
+//import { connect } from "react-redux"; //used to connect the component to the redux store
 
 class Main extends Component {
     constructor(props) {
@@ -17,6 +17,7 @@ class Main extends Component {
         };
     }
     render() {
+      console.log("PROPS ", this.props)
         const HomePage = () => {
             return (
                 <Home homeimage={this.state.homeimages}/>
@@ -52,33 +53,32 @@ class Main extends Component {
 //prop names and slices of the state
 //stored in redux
 
-const mapStateToProps = state => {
-  return {
-    feedbacks: state.feedback
-  };
-};
+// const mapStateToProps = state => {
+//   return {
+//     feedbacks: state.feedback
+//   };
+// };
 
-const mapDispatchToProps = {
-  
-  addFeedback: (
-    firstName,
-    lastName,
-    phone,
-    email,
-    agree,
-    contactType,
-    feedback
-  ) =>
-    (addFeedback(
-      firstName,
-      lastName,
-      phone,
-      email,
-      agree,
-      contactType,
-      feedback
-    ))
-};
+// const mapDispatchToProps = {
+//   addFeedback: (
+//     firstName,
+//     lastName,
+//     phone,
+//     email,
+//     agree,
+//     contactType,
+//     feedback
+//   ) =>
+//     addFeedback.ADD_FEEDBACK(
+//       firstName,
+//       lastName,
+//       phone,
+//       email,
+//       agree,
+//       contactType,
+//       feedback
+//     ),
+// };
 
 // const mapDispatchToProps = dispatch => {
 //   return {
@@ -87,5 +87,28 @@ const mapDispatchToProps = {
 //     addFeedback: () => dispatch({type: 'ADD_FEEDBACK'})
 //   }
 // }
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
-//export default Main;
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     addFeedback: (
+//     firstName,
+//     lastName,
+//     phone,
+//     email,
+//     agree,
+//     contactType,
+//     feedback) => {
+//       dispatch({type: 'ADD_FEEDBACK',   
+//     firstName,  
+//     lastName,
+//     phone,
+//     email,
+//     agree,
+//     contactType,
+//     feedback});
+//     }
+//   }
+// }
+
+//export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;

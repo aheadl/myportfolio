@@ -1,6 +1,7 @@
 import * as ActionTypes from "./ActionTypes";
-
-
+//action creators return an action / object
+//receives payload
+//use to execute asynchronous code
 
 //ConfigureStore.dispatch
 

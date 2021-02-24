@@ -1,35 +1,35 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { Control, LocalForm, Errors } from "react-redux-form";
+//import { Control, LocalForm, Errors } from "react-redux-form";
 import { addFeedback } from "../redux/ActionCreators";
 import { connect } from "react-redux";
 
-// const mapStateToProps = (state) => {
-//   return {
-//     feedbacks: state.feedback,
-//   };
-// };
+const mapStateToProps = (state) => {
+  return {
+    feedbacks: state.feedback,
+  };
+};
 
-// const mapDispatchToProps = {
-//   addFeedback: (
-//     firstName,
-//     lastName,
-//     phone,
-//     email,
-//     agree,
-//     contactType,
-//     feedback
-//   ) =>
-//     addFeedback(
-//       firstName,
-//       lastName,
-//       phone,
-//       email,
-//       agree,
-//       contactType,
-//       feedback
-//     ),
-// };
+const mapDispatchToProps = {
+  addFeedback: (
+    firstName,
+    lastName,
+    phone,
+    email,
+    agree,
+    contactType,
+    feedback
+  ) =>
+    (addFeedback(
+      firstName,
+      lastName,
+      phone,
+      email,
+      agree,
+      contactType,
+      feedback
+    ))
+};
 // const mapDispatchToProps = dispatch => {
 //   return {
 //     handleSubmit: () =>
@@ -44,6 +44,33 @@ import { connect } from "react-redux";
 //       }),
 //   };
 // }
+
+// const mapDispatchToProps = (dispatch) => {
+//   console.log("IN MAPDISPATCHTOPROPS");
+//   return {
+//     addFeedback: (
+//       firstName,
+//       lastName,
+//       phone,
+//       email,
+//       agree,
+//       contactType,
+//       feedback
+//     ) => {
+//       dispatch({
+//         type: "ADD_FEEDBACK",
+//         firstName,
+//         lastName,
+//         phone,
+//         email,
+//         agree,
+//         contactType,
+//         feedback,
+//       });
+//     },
+//   };
+// };
+
 
 class Contact extends Component {
   constructor(props) {
@@ -81,7 +108,7 @@ class Contact extends Component {
     console.log("Store feedback is ", this.props.getStoreFeedback);
     console.log("DISPLAY STATE after submit: ", this.state);
     console.log("Feedback entered: ", this.state.feedback);
-     alert(`Thanks ${this.state.firstName} for filling in the form`);
+     //alert(`Thanks ${this.state.firstName} for filling in the form`);
    
     //insert addFeedback to dispatch an action when the form is submitted, and passes to redux store
     // this.props.addFeedback(
@@ -111,6 +138,7 @@ class Contact extends Component {
        "By email",
        "Web site is ok"
      );
+
      
        
   }
@@ -305,4 +333,5 @@ class Contact extends Component {
 }
  
 
-export default Contact;
+//export default Contact;
+export default connect(mapStateToProps, mapDispatchToProps)(Contact);
